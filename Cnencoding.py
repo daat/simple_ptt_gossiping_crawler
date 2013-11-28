@@ -25,7 +25,14 @@ class Cnencoding:
 			if(source[i]>=0x81 and source[i]<=0xfe and source[i+1]>=0x40 and source[i+1]<=0xfe):
 #				dest+= str(self.ucs[((source[i])<<8|source[i+1])-33088])
 				t = source[i:i+2]
-				tt = str(t, "big5hkscs")
+				try:
+					tt = str(t, "big5hkscs")
+				except:
+					dest+=chr(source[i])
+					if i==len(source)-2:
+						i = i+1
+						dest+=chr(source[i])
+				
 #				print(tt)
 				dest += tt
 				i = i+1
